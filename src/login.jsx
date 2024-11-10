@@ -1,80 +1,17 @@
-// import React, { useState } from 'react';
-// import axios from 'axios';
-
-// const Login = () => {
-//   const [email, setEmail] = useState('');
-//   const [password, setPassword] = useState('');
-//   const [error, setError] = useState(null);
-//   const [success, setSuccess] = useState(null);
-
-//   const handleLogin = async (e) => {
-//     e.preventDefault();
-//     setError(null);
-//     setSuccess(null);
-
-//     try {
-//       const response = await axios.post('http://localhost:3000/login', {
-//         email,
-//         password,
-//       });
-
-//       const { token } = response.data;
-
-//       // Save the token to localStorage or context for future use
-//       localStorage.setItem('token', token);
-//       setSuccess('Login successful! Token saved.');
-      
-//     } catch (err) {
-//       setError(err.response?.data?.error || 'Login failed. Please try again.');
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <h2>Login</h2>
-//       <form onSubmit={handleLogin}>
-//         <div>
-//           <label>Email:</label>
-//           <input
-//             type="email"
-//             value={email}
-//             onChange={(e) => setEmail(e.target.value)}
-//             required
-//           />
-//         </div>
-//         <div>
-//           <label>Password:</label>
-//           <input
-//             type="password"
-//             value={password}
-//             onChange={(e) => setPassword(e.target.value)}
-//             required
-//           />
-//         </div>
-//         <button type="submit">Login</button>
-//       </form>
-//       {error && <p style={{ color: 'red' }}>{error}</p>}
-//       {success && <p style={{ color: 'green' }}>{success}</p>}
-//     </div>
-//   );
-// };
-
-// export default Login;
-
-
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const ThaparLogin = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    name: '',
-    role: 'student' // Default role
+    name: ''
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -94,14 +31,16 @@ const ThaparLogin = () => {
         
         // You can redirect here or handle successful login
         console.log('Login successful', response.data);
+          // Redirect to dashboard on successful login
+          navigate('/dashboard');
         
       } else {
         // Signup request
         const response = await axios.post('http://localhost:3000/signup', {
           email: formData.email,
           password: formData.password,
-          name: formData.name,
-          role: formData.role
+          name: formData.name
+          
         });
         
         console.log('Signup successful', response.data);
@@ -155,21 +94,7 @@ const ThaparLogin = () => {
                   required
                 />
               </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Role
-                </label>
-                <select
-                  name="role"
-                  value={formData.role}
-                  onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                  <option value="student">Student</option>
-                  <option value="admin">Admin</option>
-                  <option value="recruiter">Recruiter</option>
-                </select>
-              </div>
+              
             </>
           )}
           <div>
@@ -211,7 +136,7 @@ const ThaparLogin = () => {
           </button>
 
           {/* Toggle between Login and Sign Up */}
-          <div className="text-center mt-4">
+          <div className="text-center mt-4 flex justify-evenly">
             <button
               type="button"
               onClick={() => {
@@ -222,6 +147,12 @@ const ThaparLogin = () => {
             >
               {isLogin ? 'Need an account? Sign Up' : 'Already have an account? Login'}
             </button>
+            <button
+            onClick={() => {
+              navigate('/adminlogin')
+            }}
+            
+            className="text-blue-600 hover:text-blue-800 text-sm">admin login</button>
           </div>
         </form>
       </div>
