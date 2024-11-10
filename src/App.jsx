@@ -17,7 +17,6 @@ function App() {
         <Route path='adminlogin' element={<AdminLogin/>} />
         <Route path='dashboard' element={<StudentDashboard/>} />
         <Route path='admin' element={<Admin/>} />
-         
        
       </Routes>
     </BrowserRouter>
