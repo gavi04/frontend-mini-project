@@ -23,6 +23,7 @@ const StudentDashboard = () => {
   if (token) {
     try {
       userInfo = JSON.parse(atob(token.split('.')[1]));
+      console.log(userInfo);
     } catch (error) {
       console.error('Invalid token:', error);
     }
