@@ -1,0 +1,13 @@
+/* App.css */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif; /* You can change this to your preferred font */
+    background-image: url("https://images.adsttc.com/media/images/5bf3/8f5f/08a5/e509/1100/01ce/newsletter/-_Featured_Image.jpg?1542688591");
+    background-size: cover; /* Cover the entire viewport */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent repeating the image */
+  }
+  
+  
