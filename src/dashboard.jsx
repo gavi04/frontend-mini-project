@@ -10,7 +10,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const StudentDashboard = () => {
-  const backendUrl = process.env.VITE_REACT_APP_BACKEND_URL;
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
