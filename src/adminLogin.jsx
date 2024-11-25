@@ -1,8 +1,10 @@
+/* eslint-disable no-undef */
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const AdminLogin = () => {
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -18,7 +20,7 @@ const AdminLogin = () => {
 
     try {
       // Admin login request
-      const response = await axios.post('http://localhost:3000/adminlogin', {
+      const response = await axios.post(`${backendUrl}/adminlogin`, {
         email: formData.email,
         password: formData.password
       });

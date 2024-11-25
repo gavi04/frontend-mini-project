@@ -1,7 +1,9 @@
+/* eslint-disable no-undef */
 import {  useState } from 'react';
 import axios from 'axios';
 
 const JobApplications = () => {
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
   const [jobId, setJobId] = useState('');
   const [applications, setApplications] = useState([]);
   const [error, setError] = useState('');
@@ -16,7 +18,7 @@ const JobApplications = () => {
     setError('');
     try {
       const response = await axios.get(
-        `http://localhost:3000/jobs/list/${jobId}/applications`,
+        `${backendUrl}/jobs/list/${jobId}/applications`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('adminToken')}`, // Use admin token for authentication

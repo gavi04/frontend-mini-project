@@ -1,8 +1,15 @@
-import  { useState } from 'react';
+/* eslint-disable no-undef */
+import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const ThaparLogin = () => {
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
+  if (!backendUrl) {
+    console.error("Error: BACKEND_URL is not defined in the environment variables.");
+  }
+
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     email: '',
@@ -11,7 +18,7 @@ const ThaparLogin = () => {
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,31 +28,27 @@ const ThaparLogin = () => {
     try {
       if (isLogin) {
         // Login request
-        const response = await axios.post('http://localhost:3000/login', {
+        const response = await axios.post(`${backendUrl}/login`, {
           email: formData.email,
           password: formData.password
         });
 
         // Store the token in localStorage
         localStorage.setItem('token', response.data.token);
-        
-        // You can redirect here or handle successful login
+
+        // Redirect to dashboard on successful login
         console.log('Login successful', response.data);
-          // Redirect to dashboard on successful login
-          navigate('/dashboard');
-        
+        navigate('/dashboard');
       } else {
         // Signup request
-        const response = await axios.post('http://localhost:3000/signup', {
+        const response = await axios.post(`${backendUrl}/signup`, {
           email: formData.email,
           password: formData.password,
           name: formData.name
-          
         });
-        
+
         console.log('Signup successful', response.data);
-        // Automatically switch to login after successful signup
-        setIsLogin(true);
+        setIsLogin(true); // Automatically switch to login after signup
       }
     } catch (error) {
       setError(error.response?.data?.error || 'An error occurred. Please try again.');
@@ -80,22 +83,19 @@ const ThaparLogin = () => {
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
           {!isLogin && (
-            <>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Full Name
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
-                />
-              </div>
-              
-            </>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Full Name
+              </label>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+            </div>
           )}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -148,11 +148,11 @@ const ThaparLogin = () => {
               {isLogin ? 'Need an account? Sign Up' : 'Already have an account? Login'}
             </button>
             <button
-            onClick={() => {
-              navigate('/adminlogin')
-            }}
-            
-            className="text-blue-600 hover:text-blue-800 text-sm">admin login</button>
+              onClick={() => navigate('/adminlogin')}
+              className="text-blue-600 hover:text-blue-800 text-sm"
+            >
+              Admin Login
+            </button>
           </div>
         </form>
       </div>
