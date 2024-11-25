@@ -6,7 +6,7 @@ import { FaEdit, FaTrash } from "react-icons/fa"; // Importing icons
 import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 
 const Admin = () => {
-  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+  const backendUrl = process.env.VITE_REACT_APP_BACKEND_URL;
   const navigate = useNavigate(); // Initialize useNavigate
   const [formData, setFormData] = useState({
     title: "",

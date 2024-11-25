@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const ThaparLogin = () => {
-  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+  const backendUrl = env.VITE_REACT_APP_BACKEND_URL;
 
   if (!backendUrl) {
     console.error("Error: BACKEND_URL is not defined in the environment variables.");

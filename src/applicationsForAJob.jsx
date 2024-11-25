@@ -3,7 +3,7 @@ import {  useState } from 'react';
 import axios from 'axios';
 
 const JobApplications = () => {
-  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+  const backendUrl = process.env.VITE_REACT_APP_BACKEND_URL;
   const [jobId, setJobId] = useState('');
   const [applications, setApplications] = useState([]);
   const [error, setError] = useState('');
